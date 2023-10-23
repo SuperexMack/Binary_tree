@@ -1,69 +1,120 @@
-#include<bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
-class Node{
+class node
+{
 
 public:
-int data;
-Node* right; // this is the pointer which is pointing to the right of the node
-Node* left;  // this is the pointer which is pointing to the left of the node
+    int data;
+    node *left;
+    node *right;
 
-Node(int d){
+    // making of constructor
 
-this->data = d;
-this->left = NULL;
-this->right = NULL;
+    node(int data)
+    {
 
-
-}
-
-
+        this->data = data;
+        left = NULL;
+        right = NULL;
+    }
 };
 
+// PreOrder printing of binary tree
 
-Node* buildTree(Node* root){
+void preorder(node *root)
+{
+    // here we will use recursion
 
-cout<<"Enter the value of data :"<<endl;
-int data;
-cin>>data;
+    // base case
 
-root = new Node(data); // by using this constructor ki saari value call ho jainge
+    if (root == NULL)
+    {
 
-if(data == -1){
+        return;
+    }
 
-return NULL;
+    // first we will print the root or the topmost parent
 
+    cout << root->data << " ";
+
+    // now we will call the left subtree
+
+    preorder(root->left);
+
+    // now we will call the right subtree
+
+    preorder(root->right);
 }
 
-// Now Basically we will use recursion
+void Inorder(node *root)
+{
 
-cout<<"Enter data for inserting at the left :"<<endl;
+    // base case
 
-root->left = buildTree(root->left);
+    if (root == NULL)
+    {
 
-cout<<"Enter data for inserting at the right :"<<endl;
+        return;
+    }
 
-root->right = buildTree(root->right);
-
-return root;
-
-
+    Inorder(root->left);
+    cout << root->data << " ";
+    Inorder(root->right);
 }
 
+void postorder(node *root)
+{
 
-int main(){
+    // base case
+
+    if (root == NULL)
+    {
+
+        return;
+    }
+
+    postorder(root->left);
+    postorder(root->right);
+    cout << root->data << " ";
+}
+
+int main()
+{
+
+    node *root = new node(1);
+    root->left = new node(2);
+    root->right = new node(3);
+    root->left->left = new node(4);
+    root->left->right = new node(5);
+    root->right->left = new node(8);
+    root->right->right = new node(9);
+
+    /*
 
 
-Node* root = NULL;
+        1
+       / \
+      2   3
+     / \  / \
+    4   5 8  9
 
-root = buildTree(root);
+    */
 
+    cout << "The Pre-order tree is :" << endl;
+    preorder(root); // output will be  - 1 2 4 5 3 8 9
 
+    cout << endl;
 
+    cout << "The In-order tree is :" << endl;
 
+    Inorder(root); // output will be  - 4 2 5 1  8 3 9
 
+    cout << endl;
 
+    cout << "The Post-order tree is :" << endl;
 
-return 0;
+    postorder(root); // output will be  - 4 5 2 8 9 3 1
 
+    return 0;
 }
