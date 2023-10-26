@@ -45,7 +45,7 @@ void sumofnodes(node *root)
         if (mack != NULL)
         {
 
-            cout << mack->data << " ";
+           
 
             count++;
 
